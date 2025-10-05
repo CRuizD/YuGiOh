@@ -29,6 +29,7 @@ del juego con una interfaz.
 
 1. **Descarga la dependencia JSON:**
    - Obtén 'json-20250517.jar' desde [Maven Repository](https://mvnrepository.com/artifact/org.json/json/20250517)
+   - Crear carpeta 'lib' -> clic en el proyecto -> new -> Directory -> Ponerle el nombre 'lib' 
    - Colócalo en la carpeta 'lib/' del proyecto
 
 2. **Configuración en IntelliJ IDEA:**
@@ -39,9 +40,9 @@ del juego con una interfaz.
 
 ### Ejecución del Proyecto
 
-1. **Abre el archivo 'Main.java'**
+1. **Abre el archivo 'DuelFrame.java'**
 2. **Haz clic en el boton ▶️ Run** verde
-3. **O alternativamente:** clic derecho -> 'Run 'Main.main()''
+3. **O alternativamente:** clic derecho -> 'Run 'DuelFrame.main()''
 
 ### Cómo Jugar
 
