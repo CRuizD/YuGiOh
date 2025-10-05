@@ -54,8 +54,18 @@ del juego con una interfaz.
 
 ## Diseño del Sistema
 
+El simulador sigue una **arquitectura MVC (Modelo-Vista-Controlador)** con separación clara de responsabilidades. El **Modelo** (`card`) representa las cartas con sus atributos y validaciones, la **Vista** (`DuelFrame`) maneja la interfaz gráfica usando Java Swing, y el **Controlador** (`Duel`) gestiona la lógica del juego, turnos y resolución de batallas según las reglas oficiales de Yu-Gi-Oh!.
 
+Se implementa el **patrón Observer** mediante `BattleListener` para desacoplar la lógica del juego de la interfaz, permitiendo comunicación asíncrona entre componentes. El `YgoApiClient` se encarga de obtener cartas reales desde la API YGOProDeck con sistema de fallback para operación offline, mientras que el manejo de hilos con `ExecutorService` garantiza que la interfaz permanezca responsive durante las operaciones de red mediante la ejecución concurrente de:
+- Carga de múltiples cartas desde la API
+- Descarga asíncrona de imágenes
+- Procesamiento no bloqueante de peticiones HTTP
 
+### Flujo de Datos
+1. **Inicialización**: YgoApiClient obtiene cartas → Modelo Card las almacena
+2. **Interacción**: Usuario selecciona carta → Vista notifica al Controlador
+3. **Procesamiento**: Duel resuelve batalla → Notifica via BattleListener
+4. **Actualización**: Vista refleja resultados manteniendo UI responsive
 
 ## Capturas de Pantalla
 
@@ -64,35 +74,35 @@ del juego con una interfaz.
 *Interfaz principal conectando API para cargar datos y la imagen de las Cartas*
 
 ### Pantalla Principal - Cartas Cargadas
-![Cartas listas](screenshots/cartas-listas)
+![Cartas listas](screenshots/cartas-listas.png)
 *Interfaz principal mostrando las 6 cartas cargadas (3 para jugador, 3 para máquina) con botones de control habilitados*
 
 ### Duelo en Progreso - Turno del Jugador
-![Ronda 1](screenshots/ronda-1)
+![Ronda 1](screenshots/ronda-1.png)
 *Turno del jugador para la ronda 1 con cartas interactivas, log de batalla mostrando historial y marcador actual*
 
-![Ronda 2](screenshots/ronda-2)
+![Ronda 2](screenshots/ronda-2.png)
 *Turno del jugador para la ronda 2*
 
-![Ronda 3](screenshots/ronda-3)
+![Ronda 3](screenshots/ronda-3.png)
 *Turno del jugador para la ronda 3*
 
 ### Resultado de Batalla - Resultados de las rondas
-![Resultado ronda 1](screenshots/resultado-ronda1)
+![Resultado ronda 1](screenshots/resultado-ronda1.png)
 *Diálogo modal mostrando el resultado detallado de la ronda 1 con estadisticas y reglas aplicadas*
 
-![Resultado ronda 2](screenshots/resultado-ronda2)
+![Resultado ronda 2](screenshots/resultado-ronda2.png)
 *Diálogo modal mostrando el resultado detallado de la ronda 2 con estadisticas y reglas aplicadas*
 
-![Resultado ronda 3](screenshots/resultado-ronda3)
+![Resultado ronda 3](screenshots/resultado-ronda3.png)
 *Diálogo modal mostrando el resultado detallado de la ronda 3 con estadisticas y reglas aplicadas*
 
 ### Resultado final - Duelo Terminado
-![Duelo Terminado](screenshots/duelo-terminado)
+![Duelo Terminado](screenshots/duelo-terminado.png)
 *Diálogo modal mostrando el ganador del duelo, marcador final y opción para nuevo duelo*
 
 ### No carga de carta - Problema de carga
-![Carta sin cargar](screenshots/imagen-no-cargo)
+![Carta sin cargar](screenshots/imagen-no-cargo.png)
 *Cuando las cartas no cargas*
 
 
